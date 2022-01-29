@@ -3253,9 +3253,20 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   });
   function pogaudio() {
     loadSound("Music", "/sounds/medieval.mp3");
-    const music = play("Music", {
+    const music2 = play("Music", {
       loop: true
     });
+    onKeyPress("m", () => {
+      if (music2.isPaused()) {
+        music2.play();
+      } else {
+        music2.pause();
+      }
+    });
+    volume(0.5);
+  }
+  function pogaudiosito() {
+    loadSound("OgreDeath", "/sounds/die.mp3");
     onKeyPress("m", () => {
       if (music.isPaused()) {
         music.play();
@@ -3263,10 +3274,6 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
         music.pause();
       }
     });
-    volume(0.5);
-  }
-  function pogaudiosito() {
-    loadSound("OgreDeath", "/sounds/die.mp3");
     play("OgreDeath");
   }
   function changuito() {
