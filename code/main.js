@@ -3,7 +3,7 @@ const {loadAsset} = require("./assets")
 const {levelOne} = require("./levels")
 const {addPlayer, addSword, spawnOgre, addDagger} = require("./objects")
 const {playerControls} = require("./controls")
-const {pogaudio} = require("./audio")
+//const {pogaudio} = require("./audio")
 // const {control} = require("./controls")
 // const {level} = require("./map")
 
@@ -26,6 +26,6 @@ spawnOgre(8,8,player)
 playerControls(player, weapon)
 
 //audio
-pogaudio()
+//pogaudio()
 
 

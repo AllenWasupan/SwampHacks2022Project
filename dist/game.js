@@ -3183,21 +3183,20 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
     playerControls: () => playerControls
   });
   function playerControls(player2, weapon2) {
-    onKeyPress("space", () => {
-      let interacted = false;
-      every("chest", (c) => {
-        if (player2.isTouching(c)) {
-          if (c.opened) {
-            c.play("close");
-            c.opened = false;
-          } else {
-            c.play("open");
-            c.opened = true;
-          }
-          interacted = true;
-        }
-      });
-      if (!interacted) {
+    var right = true;
+    var space = false;
+    onKeyDown("space", () => {
+      if (right) {
+        weapon2.follow.offset = vec2(10, 15);
+      } else {
+        weapon2.follow.offset = vec2(-10, 15);
+      }
+    });
+    onKeyRelease("space", () => {
+      if (right) {
+        weapon2.follow.offset = vec2(-4, 15);
+      } else {
+        weapon2.follow.offset = vec2(4, 15);
       }
     });
     const SPEED = 120;
@@ -3213,6 +3212,7 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
     onKeyDown("right", () => {
       player2.flipX(false);
       weapon2.flipX(false);
+      right = true;
       player2.move(SPEED, 0);
       weapon2.follow.offset = vec2(-4, 15);
     });
@@ -3220,6 +3220,7 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
       player2.flipX(true);
       player2.move(-SPEED, 0);
       weapon2.flipX(true);
+      right = false;
       weapon2.follow.offset = vec2(4, 15);
     });
     onKeyDown("up", () => {
@@ -3253,20 +3254,9 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   });
   function pogaudio() {
     loadSound("Music", "/sounds/medieval.mp3");
-    const music2 = play("Music", {
+    const music = play("Music", {
       loop: true
     });
-    onKeyPress("m", () => {
-      if (music2.isPaused()) {
-        music2.play();
-      } else {
-        music2.pause();
-      }
-    });
-    volume(0.5);
-  }
-  function pogaudiosito() {
-    loadSound("OgreDeath", "/sounds/die.mp3");
     onKeyPress("m", () => {
       if (music.isPaused()) {
         music.play();
@@ -3274,6 +3264,10 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
         music.pause();
       }
     });
+    volume(0.5);
+  }
+  function pogaudiosito() {
+    loadSound("OgreDeath", "/sounds/die.mp3");
     play("OgreDeath");
   }
   function changuito() {
@@ -3323,12 +3317,11 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
     });
     onCollide("dagger", "enemy", (weapon3, ogre2) => {
       ogre2.hurt(1);
+      addKaboom(ogre2.pos);
     });
     on("death", "enemy", (e) => {
       destroy(e);
       shake(2);
-      pogaudiosito2();
-      addKaboom(e.pos);
     });
   }
   function addSword(player2) {
@@ -3382,7 +3375,7 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
       playerControls2 = (init_controls(), __toCommonJS(controls_exports));
       ({ pogaudiosito: pogaudiosito2, changuito: changuito2 } = (init_audio(), __toCommonJS(audio_exports)));
       playerHealth = 10;
-      ogreHealth = 4;
+      ogreHealth = 20;
       __name(addPlayer, "addPlayer");
       __name(spawnOgre, "spawnOgre");
       __name(addSword, "addSword");
@@ -3396,7 +3389,6 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   var { levelOne: levelOne2 } = (init_levels(), __toCommonJS(levels_exports));
   var { addPlayer: addPlayer2, addSword: addSword2, spawnOgre: spawnOgre2, addDagger: addDagger2 } = (init_objects(), __toCommonJS(objects_exports));
   var { playerControls: playerControls3 } = (init_controls(), __toCommonJS(controls_exports));
-  var { pogaudio: pogaudio2 } = (init_audio(), __toCommonJS(audio_exports));
   loadAsset2();
   map = levelOne2();
   player = addPlayer2(map);
@@ -3406,6 +3398,5 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   spawnOgre2(4, 8, player);
   spawnOgre2(8, 8, player);
   playerControls3(player, weapon);
-  pogaudio2();
 })();
 //# sourceMappingURL=game.js.map

@@ -1,25 +1,24 @@
 import kaboom from "kaboom"
 
 function playerControls(player, weapon){
+var right = true
+var space = false
 
   
 //Inputs
-  onKeyPress("space", () => {
-    let interacted = false
-    every("chest", (c) => {
-      if (player.isTouching(c)) {
-        if (c.opened) {
-          c.play("close")
-          c.opened = false
-        } else {
-          c.play("open")
-          c.opened = true
-        }
-        interacted = true
-      }
-    })
-    if (!interacted) {
-      
+  onKeyDown("space", () => {
+    if(right){
+      weapon.follow.offset = vec2(10, 15)
+    }else{
+      weapon.follow.offset = vec2(-10, 15)
+    }
+  })
+
+  onKeyRelease("space", () => {
+    if(right){
+      weapon.follow.offset = vec2(-4, 15)
+    }else{
+      weapon.follow.offset = vec2(4, 15)
     }
   })
 
@@ -39,15 +38,22 @@ function playerControls(player, weapon){
   onKeyDown("right", () => {
     player.flipX(false)
     weapon.flipX(false)
+    right = true
     player.move(SPEED, 0)
+    
     weapon.follow.offset = vec2(-4, 15)
+    // onKeyDown("space", () => {
+    //   weapon.follow.offset = vec2(8, 15)
+    // })
+
+    
   })
 
   onKeyDown("left", () => {
     player.flipX(true)
-    //sword.flipX(true)
     player.move(-SPEED, 0)
     weapon.flipX(true)
+    right = false
     weapon.follow.offset = vec2(4, 15)
   })
 

@@ -3,7 +3,7 @@ const playerControls = require("./controls")
 const {pogaudiosito,changuito} = require("./audio")
 
 const playerHealth = 10
-const ogreHealth = 4
+const ogreHealth = 20
 
 function addPlayer(map){
 
@@ -36,15 +36,15 @@ function spawnOgre(x,y, player,weapon){
 })
 //sword attack
 onCollide("dagger", "enemy", (weapon, ogre) => {
-		ogre.hurt(1)
   
+		ogre.hurt(1)
+    addKaboom(ogre.pos)
 	})
 
 on("death", "enemy", (e) => {
 		destroy(e)
     shake(2)
-    pogaudiosito()
-		addKaboom(e.pos)
+		//addKaboom(e.pos)
 	})
 
 }
