@@ -1,6 +1,6 @@
 import kaboom from "kaboom"
 import bean from "./characters"
-
+import bean from "./characters"
 // initialize context
 kaboom()
 

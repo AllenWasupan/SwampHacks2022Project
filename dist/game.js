@@ -2912,14 +2912,14 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   }, "random");
   function bean() {
     loadSprite("bean", "sprites/bean.png");
-    const player2 = add([
+    const bomb = add([
       sprite("bean"),
       pos(random(0, 400), random(0, 400)),
       area(),
       "bean",
-      "player"
+      "bomb"
     ]);
-    onClick("bean", (player3) => {
+    onClick("bean", (bomb2) => {
       addKaboom(mousePos());
     });
   }
