@@ -16,15 +16,14 @@ function pogaudio() {
     }
   })
   // Adjust global volume
-  volume(0.5)
+  volume(0.01)
 }
 
 function pogaudiosito() {
-  loadSound("OgreDeath", "/sounds/die.mp3")
-  // play() to play audio
-  // (This might not play until user input due to browser policy)
-  play("OgreDeath")
+  loadSound("die", "/sounds/die.mp3")
 
+  play("die")
+  volume(0.01)
 }
 
  function changuito() {

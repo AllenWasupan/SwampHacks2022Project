@@ -1,6 +1,7 @@
 import kaboom from "kaboom"
 kaboom({
 	scale: 2,
+	background: [ 25, 25, 25],
 	clearColor: [0, 0, 0],
 })
 //random num
@@ -13,6 +14,28 @@ const random = (min = 0, max = 120) => {
 export function loadAsset(){
   loadSpriteAtlas("/sprites/dungeontileset.png", {
 	"hero": {
+		"x": 128,
+		"y": 100,
+		"width": 144,
+		"height": 28,
+		"sliceX": 9,
+		"anims": {
+			"idle": {
+				"from": 0,
+				"to": 3,
+				"speed": 3,
+				"loop": true
+			},
+			"run": {
+				"from": 4,
+				"to": 7,
+				"speed": 10,
+				"loop": true
+			},
+			"hit": 8
+		}
+	},
+  "Lizard": {
 		"x": 128,
 		"y": 196,
 		"width": 144,
@@ -142,7 +165,6 @@ export function loadAsset(){
 })
 
 loadSprite("dagger", "/sprites/dagger-1.png")
-loadSprite("daggerFlip", "/sprites/daggerFlip.png")
 }
 // // Knight
 // loadSprite("knight", "/sprites/knight.png", {

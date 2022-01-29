@@ -25,6 +25,26 @@
       return cache && cache.get(module) || (temp = __reExport(__markAsModule({}), module, 1), cache && cache.set(module, temp), temp);
     };
   })(typeof WeakMap !== "undefined" ? /* @__PURE__ */ new WeakMap() : 0);
+  var __async = (__this, __arguments, generator) => {
+    return new Promise((resolve, reject) => {
+      var fulfilled = (value) => {
+        try {
+          step(generator.next(value));
+        } catch (e) {
+          reject(e);
+        }
+      };
+      var rejected = (value) => {
+        try {
+          step(generator.throw(value));
+        } catch (e) {
+          reject(e);
+        }
+      };
+      var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+      step((generator = generator.apply(__this, __arguments)).next());
+    });
+  };
 
   // node_modules/kaboom/dist/kaboom.mjs
   function jt(i, t) {
@@ -139,7 +159,7 @@
     let l = Jt(i, t);
     return l ? f(i.p1.x + l * (i.p2.x - i.p1.x), i.p1.y + l * (i.p2.y - i.p1.y)) : null;
   }
-  function dt2(i, t) {
+  function dt(i, t) {
     return ae(i, t.p1) || ae(i, t.p2) ? true : !!le(t, new he(i.p1, f(i.p2.x, i.p1.y))) || !!le(t, new he(f(i.p2.x, i.p1.y), i.p2)) || !!le(t, new he(i.p2, f(i.p1.x, i.p2.y))) || !!le(t, new he(f(i.p1.x, i.p2.y), i.p1));
   }
   function ae(i, t) {
@@ -199,7 +219,7 @@
       case "rect":
         return zt(t, i);
       case "line":
-        return dt2(t, i);
+        return dt(t, i);
       case "circle":
         return br(t, i);
       case "polygon":
@@ -212,7 +232,7 @@
   function Zt(i, t) {
     switch (i.shape) {
       case "rect":
-        return dt2(i, t);
+        return dt(i, t);
       case "line":
         return Boolean(le(i, t));
       case "circle":
@@ -687,8 +707,8 @@
       a(Jt, "testLineLineT");
       __name(le, "le");
       a(le, "testLineLine");
-      __name(dt2, "dt");
-      a(dt2, "testRectLine");
+      __name(dt, "dt");
+      a(dt, "testRectLine");
       __name(ae, "ae");
       a(ae, "testRectPoint");
       __name(br, "br");
@@ -2925,7 +2945,7 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
         a(Jn, "run"), Jn(() => {
           Un(), t.loaded ? (p.trigger("input"), C.paused || Kn(), He(), ki(), i.debug !== false && zn(), ze()) : (He(), Gi(), ze());
         }), X("apl386", Tr, 45, 74), X("apl386o", Sr, 45, 74), X("sink", Cr, 6, 8, { chars: "\u2588\u263A\u263B\u2665\u2666\u2663\u2660\u25CF\u25CB\u25AA\u25A1\u25A0\u25D8\u266A\u266B\u2261\u25BA\u25C4\u2302\xDE\xC0\xDF\xD7\xA5\u2191\u2193\u2192\u2190\u25CC\u25CF\u25BC\u25B2 !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u03A7\u2591\u2592\u2593\u1E00\u1E01\u1E02\u2502\u252C\u2524\u250C\u2510\u1E03\u1E04\u253C\u1E05\u1E06\u1E07\u1E08\u1E09\u1E0A\u1E0B\u1E0C\u2500\u251C\u2534\u2514\u2518\u1E0D\u1E0E\u205E\u1E0F\u1E10\u1E11\u1E12\u1E13\u1E14\u1E15\u1E16\u1E17\u1E18\u2584\u1E19\u1E1A\u1E1B\u1E1C\u2026\u1E1D\u1E1E\u1E1F\u1E20\u1E21\u1E22\u1E23\u1E24\u1E25\u1E26\u258C\u2590\u1E27\u1E28\u1E29\u1E2A\u1E2B\u1E2C\u1E2D\u1E2E\u1E2F\u1E30\u1E31\u1E32\u1E33\u1E34\u1E35\u1E36\u1E37\u1E38\u1E39\u1E3A\u1E3B\u1E3C\u1E3D\u1E3E\u1E3F\u1E40\u1E41\u1E42\u1E43\u1E44\u1E45\u1E46\u1E47\u1E48\u1E49\u1E4A\u1E4B\u1E4C\u1E4D\u1E4E\u1E4F\u1E50\u1E51\u1E52\u1E53\u1E54\u1E55\u1E56\u1E57\u1E58\u1E59\u1E5A\u1E5B\u1E5C\u1E5D\u1E5E\u1E5F\u1E60\u1E61\u1E62\u1E63\u1E64\u1E65\u1E66\u1E67\u1E68\u1E69\u1E6A\u1E6B\u1E6C\u1E6D\u1E6E\u1E6F\u1E70\u1E71\u1E72\u1E73\u1E74\u1E75\u1E76\u1E77\u1E78\u1E79\u1E7A\u1E7B\u1E7C" }), X("sinko", Rr, 8, 10), He(), ze();
-        let ye = { loadRoot: q, loadSprite: J, loadSpriteAtlas: Ee, loadSound: Ce, loadFont: X, loadShader: Se, loadAseprite: Et, loadPedit: $e, loadBean: _r, load: S, width: F, height: G, center: ot, dt: Z, time: nt, screenshot: bn, record: Nn, isFocused: jn, focus, cursor: xn, regCursor: ii, fullscreen: Hr, isFullscreen: vn, onLoad: Ue, isTouch: () => t.isTouch, layers: Qr, camPos: Zr, camScale: ei, camRot: ti, shake: ni, toScreen: rt, toWorld: Lt, gravity: Fn, add: kt, readd: Di, destroy: at, destroyAll: Ai, get: Oi, every: Ii, revery: Vi, pos: it, scale: st, rotate: si, color: oi, opacity: ai, origin: Ot, layer: ui, area: fi, sprite: Vt, text: pi, rect: mi, circle: gi, uvquad: wi, outline: Ui, body: xi, shader: vi, timer: Gn, solid: Ei, fixed: Ti, stay: Ft, health: Si, lifespan: Ci, z: ci, move: hi, outview: It, cleanup: di, follow: li, state: Ri, on: qe, onUpdate: Pe, onDraw: Tn, onCollide: Sn, onClick: Cn, onHover: Rn, onKeyDown: qt, onKeyPress: H, onKeyPressRepeat: Pt, onKeyRelease: Dt, onMouseDown: Mn, onMousePress: At, onMouseRelease: Ln, onMouseMove: qn, onCharInput: Pn, onTouchStart: Dn, onTouchMove: An, onTouchEnd: On, mousePos: K, mouseWorldPos: Jr, mouseDeltaPos: yn, isKeyDown: Mt, isKeyPressed: Le, isKeyPressedRepeat: Wt, isKeyReleased: tt, isMouseDown: Ze, isMousePressed: Me, isMouseReleased: et, isMouseMoved: Rt, loop: ri, wait: Wn, play: Xe, volume: Br, burp: un, audioCtx: w.ctx, Timer: fe, Line: he, Rect: _e, Circle: yt, Vec2: L, Color: v, Mat4: R, Quad: k, RNG: be, rng: mr, rand: ke, randi: Ht, randSeed: wr, vec2: f, rgb: E, hsl2rgb: dr, quad: fr, choose: Ur, chance: gr, lerp: Ve, map: ht, mapc: hr, wave: Xt, deg2rad: ue, rad2deg: $t, testAreaRect: wt, testAreaLine: Zt, testAreaCircle: en, testAreaPolygon: tn, testAreaPoint: gt, testAreaArea: nn, testLineLine: le, testRectRect: zt, testRectLine: dt2, testRectPoint: ae, testPolygonPoint: xe, testLinePolygon: Ge, testPolygonPolygon: mt, testCircleCircle: Qt, testCirclePoint: pt, testRectPolygon: ft, drawSprite: hn, drawText: Xr, formatText: me, drawRect: Q, drawLine: We, drawLines: dn, drawTriangle: fn, drawCircle: Ct, drawEllipse: pn, drawUVQuad: pe, drawPolygon: Qe, drawFormattedText: we, pushTransform: re, popTransform: ie, pushTranslate: I, pushRotate: Je, pushScale: ne, debug: C, scene: Wi, go: Mi, addLevel: Pi, getData: Li, setData: _n, plug: Bn, ASCII_CHARS: Ar, CP437_CHARS: ls, canvas: t.canvas, addKaboom: Fi, LEFT: L.LEFT, RIGHT: L.RIGHT, UP: L.UP, DOWN: L.DOWN, RED: v.RED, GREEN: v.GREEN, BLUE: v.BLUE, YELLOW: v.YELLOW, MAGENTA: v.MAGENTA, CYAN: v.CYAN, WHITE: v.WHITE, BLACK: v.BLACK, keyIsDown: T("keyIsDown()", "isKeyDown()", Mt), keyIsPressed: T("keyIsPressed()", "isKeyPressed()", Le), keyIsPressedRep: T("keyIsPressedRep()", "isKeyPressedRepeat()", Wt), keyIsReleased: T("keyIsReleased()", "isKeyReleased()", tt), mouseIsDown: T("mouseIsDown()", "isMouseDown()", Ze), mouseIsClicked: T("mouseIsClicked()", "isMousePressed()", Me), mouseIsReleased: T("mouseIsReleased()", "isMouseReleased()", et), mouseIsMoved: T("mouseIsMoved()", "isMouseMoved()", Rt), dir: T("dir()", "Vec2.fromAngle()", L.fromAngle), action: T("action()", "onUpdate()", Pe), render: T("render()", "onDraw()", Tn), collides: T("collides()", "onCollide()", Sn), clicks: T("clicks()", "onClick()", Cn), hovers: T("hovers()", "onHover()", Rn), keyDown: T("keyDown()", "onKeyDown()", qt), keyPress: T("keyPress()", "onKeyPress()", H), keyPressRep: T("keyPressRep()", "onKeyPressRepeat()", Pt), keyRelease: T("keyRelease()", "onKeyRelease()", Dt), mouseDown: T("mouseDown()", "onMouseDown()", Mn), mouseClick: T("mouseClick()", "onMousePress()", At), mouseRelease: T("mouseRelease()", "onMouseRelease()", Ln), mouseMove: T("mouseMove()", "onMouseMove()", qn), charInput: T("charInput()", "onCharInput()", Pn), touchStart: T("touchStart()", "onTouchStart()", Dn), touchMove: T("touchMove()", "onTouchMove()", An), touchEnd: T("touchEnd()", "onTouchEnd()", On), focused: T("focused()", "isFocused()", jn), ready: T("ready()", "onLoad()", Ue) };
+        let ye = { loadRoot: q, loadSprite: J, loadSpriteAtlas: Ee, loadSound: Ce, loadFont: X, loadShader: Se, loadAseprite: Et, loadPedit: $e, loadBean: _r, load: S, width: F, height: G, center: ot, dt: Z, time: nt, screenshot: bn, record: Nn, isFocused: jn, focus, cursor: xn, regCursor: ii, fullscreen: Hr, isFullscreen: vn, onLoad: Ue, isTouch: () => t.isTouch, layers: Qr, camPos: Zr, camScale: ei, camRot: ti, shake: ni, toScreen: rt, toWorld: Lt, gravity: Fn, add: kt, readd: Di, destroy: at, destroyAll: Ai, get: Oi, every: Ii, revery: Vi, pos: it, scale: st, rotate: si, color: oi, opacity: ai, origin: Ot, layer: ui, area: fi, sprite: Vt, text: pi, rect: mi, circle: gi, uvquad: wi, outline: Ui, body: xi, shader: vi, timer: Gn, solid: Ei, fixed: Ti, stay: Ft, health: Si, lifespan: Ci, z: ci, move: hi, outview: It, cleanup: di, follow: li, state: Ri, on: qe, onUpdate: Pe, onDraw: Tn, onCollide: Sn, onClick: Cn, onHover: Rn, onKeyDown: qt, onKeyPress: H, onKeyPressRepeat: Pt, onKeyRelease: Dt, onMouseDown: Mn, onMousePress: At, onMouseRelease: Ln, onMouseMove: qn, onCharInput: Pn, onTouchStart: Dn, onTouchMove: An, onTouchEnd: On, mousePos: K, mouseWorldPos: Jr, mouseDeltaPos: yn, isKeyDown: Mt, isKeyPressed: Le, isKeyPressedRepeat: Wt, isKeyReleased: tt, isMouseDown: Ze, isMousePressed: Me, isMouseReleased: et, isMouseMoved: Rt, loop: ri, wait: Wn, play: Xe, volume: Br, burp: un, audioCtx: w.ctx, Timer: fe, Line: he, Rect: _e, Circle: yt, Vec2: L, Color: v, Mat4: R, Quad: k, RNG: be, rng: mr, rand: ke, randi: Ht, randSeed: wr, vec2: f, rgb: E, hsl2rgb: dr, quad: fr, choose: Ur, chance: gr, lerp: Ve, map: ht, mapc: hr, wave: Xt, deg2rad: ue, rad2deg: $t, testAreaRect: wt, testAreaLine: Zt, testAreaCircle: en, testAreaPolygon: tn, testAreaPoint: gt, testAreaArea: nn, testLineLine: le, testRectRect: zt, testRectLine: dt, testRectPoint: ae, testPolygonPoint: xe, testLinePolygon: Ge, testPolygonPolygon: mt, testCircleCircle: Qt, testCirclePoint: pt, testRectPolygon: ft, drawSprite: hn, drawText: Xr, formatText: me, drawRect: Q, drawLine: We, drawLines: dn, drawTriangle: fn, drawCircle: Ct, drawEllipse: pn, drawUVQuad: pe, drawPolygon: Qe, drawFormattedText: we, pushTransform: re, popTransform: ie, pushTranslate: I, pushRotate: Je, pushScale: ne, debug: C, scene: Wi, go: Mi, addLevel: Pi, getData: Li, setData: _n, plug: Bn, ASCII_CHARS: Ar, CP437_CHARS: ls, canvas: t.canvas, addKaboom: Fi, LEFT: L.LEFT, RIGHT: L.RIGHT, UP: L.UP, DOWN: L.DOWN, RED: v.RED, GREEN: v.GREEN, BLUE: v.BLUE, YELLOW: v.YELLOW, MAGENTA: v.MAGENTA, CYAN: v.CYAN, WHITE: v.WHITE, BLACK: v.BLACK, keyIsDown: T("keyIsDown()", "isKeyDown()", Mt), keyIsPressed: T("keyIsPressed()", "isKeyPressed()", Le), keyIsPressedRep: T("keyIsPressedRep()", "isKeyPressedRepeat()", Wt), keyIsReleased: T("keyIsReleased()", "isKeyReleased()", tt), mouseIsDown: T("mouseIsDown()", "isMouseDown()", Ze), mouseIsClicked: T("mouseIsClicked()", "isMousePressed()", Me), mouseIsReleased: T("mouseIsReleased()", "isMouseReleased()", et), mouseIsMoved: T("mouseIsMoved()", "isMouseMoved()", Rt), dir: T("dir()", "Vec2.fromAngle()", L.fromAngle), action: T("action()", "onUpdate()", Pe), render: T("render()", "onDraw()", Tn), collides: T("collides()", "onCollide()", Sn), clicks: T("clicks()", "onClick()", Cn), hovers: T("hovers()", "onHover()", Rn), keyDown: T("keyDown()", "onKeyDown()", qt), keyPress: T("keyPress()", "onKeyPress()", H), keyPressRep: T("keyPressRep()", "onKeyPressRepeat()", Pt), keyRelease: T("keyRelease()", "onKeyRelease()", Dt), mouseDown: T("mouseDown()", "onMouseDown()", Mn), mouseClick: T("mouseClick()", "onMousePress()", At), mouseRelease: T("mouseRelease()", "onMouseRelease()", Ln), mouseMove: T("mouseMove()", "onMouseMove()", qn), charInput: T("charInput()", "onCharInput()", Pn), touchStart: T("touchStart()", "onTouchStart()", Dn), touchMove: T("touchMove()", "onTouchMove()", An), touchEnd: T("touchEnd()", "onTouchEnd()", On), focused: T("focused()", "isFocused()", jn), ready: T("ready()", "onLoad()", Ue) };
         if (i.plugins && i.plugins.forEach(Bn), i.global !== false)
           for (let e in ye)
             window[e] = ye[e];
@@ -2942,6 +2962,28 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   function loadAsset() {
     loadSpriteAtlas("/sprites/dungeontileset.png", {
       "hero": {
+        "x": 128,
+        "y": 100,
+        "width": 144,
+        "height": 28,
+        "sliceX": 9,
+        "anims": {
+          "idle": {
+            "from": 0,
+            "to": 3,
+            "speed": 3,
+            "loop": true
+          },
+          "run": {
+            "from": 4,
+            "to": 7,
+            "speed": 10,
+            "loop": true
+          },
+          "hit": 8
+        }
+      },
+      "Lizard": {
         "x": 128,
         "y": 196,
         "width": 144,
@@ -3069,13 +3111,13 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
       }
     });
     loadSprite("dagger", "/sprites/dagger-1.png");
-    loadSprite("daggerFlip", "/sprites/daggerFlip.png");
   }
   var init_assets = __esm({
     "code/assets.js"() {
       init_kaboom();
       to({
         scale: 2,
+        background: [25, 25, 25],
         clearColor: [0, 0, 0]
       });
       __name(loadAsset, "loadAsset");
@@ -3089,16 +3131,33 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   });
   function levelOne() {
     addLevel([
-      "xxxxxxxxxx",
-      "          ",
-      "          ",
-      "          ",
-      "          ",
-      "          ",
-      "          ",
-      "          ",
-      "          ",
-      "          "
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxx            ",
+      "           xxxxxx            ",
+      "           xxxxxx          $ ",
+      "                             ",
+      "                             ",
+      "       $              $      ",
+      "                             ",
+      "           xxxxxx            ",
+      "           xxxxxx            ",
+      "xxxxxxxxxxxxxxxxx            ",
+      "xxxxxxxxxxxxxxxxx            ",
+      "xxxxxxxxxxxxxxxxx            ",
+      "xxxxxxxxxxxxxxxxx          $ ",
+      "xxxxxxxxxxxxxxxxx            ",
+      "xxxxxxxxxxxxxxxxx            ",
+      "xxxxxxxxxxxxxxxxxxxxxxxxx  xxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxxxxxxx  xxxxxxxxxx",
+      "xxxxxxx                        xxxxxx",
+      "xxxxxxx                        xxxxxx",
+      "xxxxxxx            $           xxxxxx",
+      "xxxxxxx                        xxxxxx",
+      "xxxxxxx                        xxxxxx",
+      "xxxxxxx       $                xxxxxx",
+      "xxxxxxx                        xxxxxx",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     ], {
       width: 16,
       height: 16,
@@ -3107,16 +3166,33 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
       ]
     });
     const map2 = addLevel([
-      "tttttttttt",
-      "cwwwwwwwwd",
-      "l        r",
-      "l        r",
-      "l        r",
-      "l      $ r",
-      "l        r",
-      "l $      r",
-      "attttttttb",
-      "wwwwwwwwww"
+      "ttttttttttt      tttttttttttt",
+      "cwwwwwwwwwwl     cwwwwwwwwwwd",
+      "l          atttttl          r",
+      "l          wwwwww           r",
+      "l                           r",
+      "l     $                     r",
+      "l          tttttt           r",
+      "l          cwwwwwl          r",
+      "atttttttttb      l          r",
+      "wwwwwwwwwww      l     $    r",
+      "                 l          r",
+      "                 l          r",
+      "                 l          r",
+      "                 l          r",
+      "                 attttttt  tb",
+      "                 wwwwwwww  ww",
+      "       ttttttttttttttttttlrttttxxxxxx",
+      "       cwwwwwwwwwwwwwwwwwlrwwwdxxxxxx",
+      "xxxxxxxl                      rxxxxxx",
+      "xxxxxxxl                      rxxxxxx",
+      "xxxxxxxl                      rxxxxxx",
+      "xxxxxxxl                      rxxxxxx",
+      "xxxxxxxl                      rxxxxxx",
+      "xxxxxxxattttttttttttttttttttttbxxxxxx",
+      "xxxxxxxwwwwwwwwwwwwwwwwwwwwwwwwxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     ], {
       width: 16,
       height: 16,
@@ -3185,15 +3261,33 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   function playerControls(player2, weapon2) {
     var right = true;
     var space = false;
-    onKeyDown("space", () => {
-      if (right) {
+    var up = false;
+    var down = false;
+    onKeyPress("space", () => {
+      if (up && right) {
+        weapon2.follow.offset = vec2(4, -4);
+      } else if (down && right) {
+        weapon2.follow.offset = vec2(-8, 20);
+      } else if (up) {
+        weapon2.follow.offset = vec2(-4, -6);
+      } else if (down) {
+        weapon2.follow.offset = vec2(9, 21);
+      } else if (right) {
         weapon2.follow.offset = vec2(10, 15);
       } else {
         weapon2.follow.offset = vec2(-10, 15);
       }
     });
     onKeyRelease("space", () => {
-      if (right) {
+      if (up && right) {
+        weapon2.follow.offset = vec2(4, 4);
+      } else if (down && right) {
+        weapon2.follow.offset = vec2(-8, 14);
+      } else if (up) {
+        weapon2.follow.offset = vec2(-4, 6);
+      } else if (down) {
+        weapon2.follow.offset = vec2(9, 15);
+      } else if (right) {
         weapon2.follow.offset = vec2(-4, 15);
       } else {
         weapon2.follow.offset = vec2(4, 15);
@@ -3210,24 +3304,54 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
       camPos(player2.pos);
     });
     onKeyDown("right", () => {
+      weapon2.angle = 0;
       player2.flipX(false);
       weapon2.flipX(false);
       right = true;
+      up = false;
+      down = false;
       player2.move(SPEED, 0);
       weapon2.follow.offset = vec2(-4, 15);
     });
     onKeyDown("left", () => {
+      weapon2.angle = 0;
       player2.flipX(true);
       player2.move(-SPEED, 0);
       weapon2.flipX(true);
       right = false;
+      up = false;
+      down = false;
       weapon2.follow.offset = vec2(4, 15);
     });
     onKeyDown("up", () => {
       player2.move(0, -SPEED);
+      if (down) {
+        weapon2.angle = 0;
+      }
+      if (right) {
+        weapon2.angle = 270;
+        weapon2.follow.offset = vec2(4, 4);
+      } else {
+        weapon2.angle = 90;
+        weapon2.follow.offset = vec2(-4, 6);
+      }
+      up = true;
+      down = false;
     });
     onKeyDown("down", () => {
       player2.move(0, SPEED);
+      if (up) {
+        weapon2.angle = 0;
+      }
+      if (right) {
+        weapon2.angle = 90;
+        weapon2.follow.offset = vec2(-8, 10);
+      } else {
+        weapon2.angle = 270;
+        weapon2.follow.offset = vec2(9, 10);
+      }
+      down = true;
+      up = false;
     });
     onKeyPress(["left", "right", "up", "down"], () => {
       player2.play("run");
@@ -3264,11 +3388,12 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
         music.pause();
       }
     });
-    volume(0.5);
+    volume(0.01);
   }
   function pogaudiosito() {
-    loadSound("OgreDeath", "/sounds/die.mp3");
-    play("OgreDeath");
+    loadSound("die", "/sounds/die.mp3");
+    play("die");
+    volume(0.01);
   }
   function changuito() {
     loadSound("open_chest", "/sounds/chest_open.mp3");
@@ -3288,7 +3413,7 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   __export(objects_exports, {
     addDagger: () => addDagger,
     addPlayer: () => addPlayer,
-    addSword: () => addSword,
+    spawnLizard: () => spawnLizard,
     spawnOgre: () => spawnOgre
   });
   function addPlayer(map2) {
@@ -3298,8 +3423,15 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
       area({ width: 12, height: 12, offset: vec2(0, 6) }),
       health(playerHealth),
       solid(),
-      origin("center")
+      origin("center"),
+      "player"
     ]);
+    on("death", "player", (e) => {
+      destroy(e);
+      shake(5);
+      volume(0.01);
+      addKaboom(e.pos);
+    });
     return player2;
   }
   function spawnOgre(x, y, player2, weapon2) {
@@ -3310,75 +3442,132 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
       area({ scale: 0.5 }),
       health(ogreHealth),
       solid(),
+      state("move"),
       "enemy"
     ]);
+    ogre.onStateEnter("move", () => __async(this, null, function* () {
+      yield wait(2);
+      ogre.enterState("idle");
+    }));
+    ogre.onStateUpdate("move", () => {
+      var distanceX = Math.abs(player2.pos.x - ogre.pos.x);
+      var distanceY = Math.abs(player2.pos.y - ogre.pos.y);
+      if (!player2.exists())
+        return;
+      if (distanceX < 150 && distanceY < 150) {
+        const dir = player2.pos.sub(ogre.pos).unit();
+        ogre.move(dir.scale(10));
+      }
+    });
     player2.onCollide("enemy", (ogre2) => {
       player2.hurt(1);
     });
-    onCollide("dagger", "enemy", (weapon3, ogre2) => {
-      ogre2.hurt(1);
-      addKaboom(ogre2.pos);
+    loadSound("die", "/sounds/die.mp3");
+    onKeyPress("space", () => {
+      onCollide("dagger", "enemy", (weapon3, ogre2) => {
+        ogre2.hurt(1);
+        ogre2.color = rgb(255, 0, 0);
+      });
     });
+    loadSprite("boom", "/sprites/boom.png");
     on("death", "enemy", (e) => {
+      const particles = add([
+        pos(e.pos),
+        sprite("boom"),
+        origin("center"),
+        scale(rand(0.3)),
+        area(),
+        body({ solid: false }),
+        lifespan(1, { fade: 0.5 }),
+        move(choose([LEFT, RIGHT]), rand(60, 240))
+      ]);
       destroy(e);
       shake(2);
+      play("die");
+      particles.jump();
+      volume(0.01);
     });
   }
-  function addSword(player2) {
-    function spin() {
-      let spinning = false;
-      return {
-        id: "spin",
-        update() {
-          if (spinning) {
-            this.angle += 1200 * dt();
-            if (this.angle >= 360) {
-              this.angle = 0;
-              spinning = false;
-            }
-          }
-        },
-        spin() {
-          spinning = true;
-        }
-      };
-    }
-    __name(spin, "spin");
-    const sword = add([
-      pos(),
-      sprite("sword"),
+  function spawnLizard(x, y, player2, weapon2) {
+    const Lizard = add([
+      sprite("Lizard"),
+      pos(map.getPos(x, y)),
       origin("bot"),
-      rotate(0),
-      follow(player2, vec2(-4, 9)),
-      spin(),
-      area(),
-      "sword"
+      area({ scale: 0.5 }),
+      health(lizardHealth),
+      solid(),
+      state("move", "idle"),
+      "enemy"
     ]);
-    return sword;
+    Lizard.onStateEnter("idle", () => __async(this, null, function* () {
+      yield wait(0.5);
+      eLizard.enterState("move");
+    }));
+    Lizard.onStateEnter("move", () => __async(this, null, function* () {
+      yield wait(2);
+      Lizard.enterState("idle");
+    }));
+    Lizard.onStateUpdate("move", () => {
+      if (!player2.exists())
+        return;
+      const dir = player2.pos.sub(Lizard.pos).unit();
+      Lizard.move(dir.scale(25));
+    });
+    player2.onCollide("enemy", (Lizard2) => {
+      player2.hurt(1);
+    });
+    loadSound("die", "/sounds/die.mp3");
+    onKeyPress("space", () => {
+      onCollide("dagger", "enemy", (weapon3, Lizard2) => {
+        Lizard2.hurt(1);
+        Lizard2.color = rgb(255, 0, 0);
+      });
+    });
+    loadSprite("boom", "/sprites/boom.png");
+    on("death", "enemy", (e) => {
+      const particles = add([
+        pos(e.pos),
+        sprite("boom"),
+        origin("center"),
+        scale(rand(0.3)),
+        area(),
+        body({ solid: false }),
+        lifespan(1, { fade: 0.5 }),
+        move(choose([LEFT, RIGHT]), rand(60, 240))
+      ]);
+      destroy(e);
+      shake(2);
+      play("die");
+      particles.jump();
+      volume(0.01);
+    });
   }
   function addDagger(player2) {
     const dagger = add([
       pos(),
       sprite("dagger"),
       origin("bot"),
-      rotate(0),
-      follow(player2, vec2(-4, 15)),
+      follow(player2, vec2(-4, 16)),
       area(),
       "dagger"
     ]);
+    on("death", "player", () => {
+      destroy(dagger);
+    });
     return dagger;
   }
-  var playerControls2, pogaudiosito2, changuito2, playerHealth, ogreHealth;
+  var playerControls2, pogaudio2, pogaudiosito2, changuito2, playerHealth, ogreHealth, lizardHealth;
   var init_objects = __esm({
     "code/objects.js"() {
       init_kaboom();
       playerControls2 = (init_controls(), __toCommonJS(controls_exports));
-      ({ pogaudiosito: pogaudiosito2, changuito: changuito2 } = (init_audio(), __toCommonJS(audio_exports)));
-      playerHealth = 10;
-      ogreHealth = 20;
+      ({ pogaudio: pogaudio2, pogaudiosito: pogaudiosito2, changuito: changuito2 } = (init_audio(), __toCommonJS(audio_exports)));
+      playerHealth = 100;
+      ogreHealth = 5;
+      lizardHealth = 1;
       __name(addPlayer, "addPlayer");
       __name(spawnOgre, "spawnOgre");
-      __name(addSword, "addSword");
+      __name(spawnLizard, "spawnLizard");
       __name(addDagger, "addDagger");
     }
   });
@@ -3387,16 +3576,17 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   init_kaboom();
   var { loadAsset: loadAsset2 } = (init_assets(), __toCommonJS(assets_exports));
   var { levelOne: levelOne2 } = (init_levels(), __toCommonJS(levels_exports));
-  var { addPlayer: addPlayer2, addSword: addSword2, spawnOgre: spawnOgre2, addDagger: addDagger2 } = (init_objects(), __toCommonJS(objects_exports));
+  var { addPlayer: addPlayer2, addSword, spawnOgre: spawnOgre2, spawnLizard: spawnLizard2, addDagger: addDagger2 } = (init_objects(), __toCommonJS(objects_exports));
   var { playerControls: playerControls3 } = (init_controls(), __toCommonJS(controls_exports));
+  var { pogaudio: pogaudio3 } = (init_audio(), __toCommonJS(audio_exports));
   loadAsset2();
   map = levelOne2();
   player = addPlayer2(map);
   weapon = addDagger2(player);
-  spawnOgre2(5, 3, player, weapon);
-  spawnOgre2(5, 5, player);
-  spawnOgre2(4, 8, player);
-  spawnOgre2(8, 8, player);
+  spawnOgre2(4, 8, player, weapon);
+  spawnOgre2(8, 8, player, weapon);
+  spawnLizard2(2, 8, player, weapon);
   playerControls3(player, weapon);
+  pogaudio3();
 })();
 //# sourceMappingURL=game.js.map
