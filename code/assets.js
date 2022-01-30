@@ -1,6 +1,6 @@
 import kaboom from "kaboom"
 kaboom({
-	scale: 2,
+	scale: 1,
 	background: [ 25, 25, 25],
 	clearColor: [0, 0, 0],
 })
@@ -162,9 +162,34 @@ export function loadAsset(){
 		"width": 16,
 		"height": 16
 	},
+  "doorblclosed": {
+    "x": 32,
+		"y": 240,
+		"width": 16,
+		"height": 16
+  },
+  "doorbrclosed": {
+    "x": 48,
+		"y": 240,
+		"width": 16,
+		"height": 16
+  },
+  "doortlclosed": {
+    "x": 32,
+		"y": 224,
+		"width": 16,
+		"height": 16
+  },
+  "doortrclosed": {
+    "x": 48,
+		"y": 224,
+		"width": 16,
+		"height": 16
+  },
 })
 
 loadSprite("dagger", "/sprites/dagger-1.png")
+loadSprite("boom", "/sprites/boom.png")
 }
 // // Knight
 // loadSprite("knight", "/sprites/knight.png", {

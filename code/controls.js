@@ -44,6 +44,18 @@ var down = false
     }
   })
 
+  onKeyPress("enter", () => {
+    every("chest", (c) => {
+		if (player.isTouching(c) && c.opened == false) {
+      
+				c.play("open")
+				c.opened = true
+
+		}
+	})
+  })
+
+
   const SPEED = 120
 
   const dirs = {

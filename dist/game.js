@@ -3108,15 +3108,40 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
         "y": 144,
         "width": 16,
         "height": 16
+      },
+      "doorblclosed": {
+        "x": 32,
+        "y": 240,
+        "width": 16,
+        "height": 16
+      },
+      "doorbrclosed": {
+        "x": 48,
+        "y": 240,
+        "width": 16,
+        "height": 16
+      },
+      "doortlclosed": {
+        "x": 32,
+        "y": 224,
+        "width": 16,
+        "height": 16
+      },
+      "doortrclosed": {
+        "x": 48,
+        "y": 224,
+        "width": 16,
+        "height": 16
       }
     });
     loadSprite("dagger", "/sprites/dagger-1.png");
+    loadSprite("boom", "/sprites/boom.png");
   }
   var init_assets = __esm({
     "code/assets.js"() {
       init_kaboom();
       to({
-        scale: 2,
+        scale: 1,
         background: [25, 25, 25],
         clearColor: [0, 0, 0]
       });
@@ -3134,30 +3159,21 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "xxxxxxxxxxxxxxxxx            ",
       "           xxxxxx            ",
-      "           xxxxxx          $ ",
+      "           xxxxxx            ",
       "                             ",
       "                             ",
-      "       $              $      ",
+      "                             ",
       "                             ",
       "           xxxxxx            ",
       "           xxxxxx            ",
       "xxxxxxxxxxxxxxxxx            ",
       "xxxxxxxxxxxxxxxxx            ",
       "xxxxxxxxxxxxxxxxx            ",
-      "xxxxxxxxxxxxxxxxx          $ ",
       "xxxxxxxxxxxxxxxxx            ",
       "xxxxxxxxxxxxxxxxx            ",
-      "xxxxxxxxxxxxxxxxxxxxxxxxx  xxxxxxxxxx",
-      "xxxxxxxxxxxxxxxxxxxxxxxxx  xxxxxxxxxx",
-      "xxxxxxx                        xxxxxx",
-      "xxxxxxx                        xxxxxx",
-      "xxxxxxx            $           xxxxxx",
-      "xxxxxxx                        xxxxxx",
-      "xxxxxxx                        xxxxxx",
-      "xxxxxxx       $                xxxxxx",
-      "xxxxxxx                        xxxxxx",
-      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      "xxxxxxxxxxxxxxxxx            ",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     ], {
       width: 16,
       height: 16,
@@ -3166,8 +3182,8 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
       ]
     });
     const map2 = addLevel([
-      "ttttttttttt      tttttttttttt",
-      "cwwwwwwwwwwl     cwwwwwwwwwwd",
+      "tLWtttttttt      ttttttttLWtt",
+      "cDRwwwwwwwwl     cwwwwwwwDRwd",
       "l          atttttl          r",
       "l          wwwwww           r",
       "l                           r",
@@ -3180,19 +3196,8 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
       "                 l          r",
       "                 l          r",
       "                 l          r",
-      "                 attttttt  tb",
-      "                 wwwwwwww  ww",
-      "       ttttttttttttttttttlrttttxxxxxx",
-      "       cwwwwwwwwwwwwwwwwwlrwwwdxxxxxx",
-      "xxxxxxxl                      rxxxxxx",
-      "xxxxxxxl                      rxxxxxx",
-      "xxxxxxxl                      rxxxxxx",
-      "xxxxxxxl                      rxxxxxx",
-      "xxxxxxxl                      rxxxxxx",
-      "xxxxxxxattttttttttttttttttttttbxxxxxx",
-      "xxxxxxxwwwwwwwwwwwwwwwwwwwwwwwwxxxxxx",
-      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      "                 attttttttttb",
+      "                 wwwwwwwwwwww"
     ], {
       width: 16,
       height: 16,
@@ -3241,6 +3246,46 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
       "r": () => [
         sprite("wall_right"),
         area({ width: 4, offset: vec2(12, 0) }),
+        solid()
+      ],
+      "D": () => [
+        sprite("doorblclosed"),
+        area(),
+        solid()
+      ],
+      "R": () => [
+        sprite("doorbrclosed"),
+        area(),
+        solid()
+      ],
+      "L": () => [
+        sprite("doortlclosed"),
+        area(),
+        solid()
+      ],
+      "W": () => [
+        sprite("doortrclosed"),
+        area(),
+        solid()
+      ],
+      "T": () => [
+        sprite("doorblopen"),
+        area(),
+        solid()
+      ],
+      "Y": () => [
+        sprite("doorbropen"),
+        area(),
+        solid()
+      ],
+      "G": () => [
+        sprite("doortlopen"),
+        area(),
+        solid()
+      ],
+      "H": () => [
+        sprite("doortropen"),
+        area(),
         solid()
       ]
     });
@@ -3292,6 +3337,14 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
       } else {
         weapon2.follow.offset = vec2(4, 15);
       }
+    });
+    onKeyPress("enter", () => {
+      every("chest", (c) => {
+        if (player2.isTouching(c) && c.opened == false) {
+          c.play("open");
+          c.opened = true;
+        }
+      });
     });
     const SPEED = 120;
     const dirs = {
@@ -3469,22 +3522,10 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
         ogre2.color = rgb(255, 0, 0);
       });
     });
-    loadSprite("boom", "/sprites/boom.png");
     on("death", "enemy", (e) => {
-      const particles = add([
-        pos(e.pos),
-        sprite("boom"),
-        origin("center"),
-        scale(rand(0.3)),
-        area(),
-        body({ solid: false }),
-        lifespan(1, { fade: 0.5 }),
-        move(choose([LEFT, RIGHT]), rand(60, 240))
-      ]);
       destroy(e);
       shake(2);
       play("die");
-      particles.jump();
       volume(0.01);
     });
   }
@@ -3508,10 +3549,14 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
       Lizard.enterState("idle");
     }));
     Lizard.onStateUpdate("move", () => {
+      var distanceX = Math.abs(player2.pos.x - Lizard.pos.x);
+      var distanceY = Math.abs(player2.pos.y - Lizard.pos.y);
       if (!player2.exists())
         return;
-      const dir = player2.pos.sub(Lizard.pos).unit();
-      Lizard.move(dir.scale(25));
+      if (distanceX < 125 && distanceY < 125) {
+        const dir = player2.pos.sub(Lizard.pos).unit();
+        Lizard.move(dir.scale(40));
+      }
     });
     player2.onCollide("enemy", (Lizard2) => {
       player2.hurt(1);
@@ -3523,22 +3568,10 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
         Lizard2.color = rgb(255, 0, 0);
       });
     });
-    loadSprite("boom", "/sprites/boom.png");
     on("death", "enemy", (e) => {
-      const particles = add([
-        pos(e.pos),
-        sprite("boom"),
-        origin("center"),
-        scale(rand(0.3)),
-        area(),
-        body({ solid: false }),
-        lifespan(1, { fade: 0.5 }),
-        move(choose([LEFT, RIGHT]), rand(60, 240))
-      ]);
       destroy(e);
       shake(2);
       play("die");
-      particles.jump();
       volume(0.01);
     });
   }
@@ -3562,7 +3595,7 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
       init_kaboom();
       playerControls2 = (init_controls(), __toCommonJS(controls_exports));
       ({ pogaudio: pogaudio2, pogaudiosito: pogaudiosito2, changuito: changuito2 } = (init_audio(), __toCommonJS(audio_exports)));
-      playerHealth = 100;
+      playerHealth = 10;
       ogreHealth = 5;
       lizardHealth = 1;
       __name(addPlayer, "addPlayer");
@@ -3572,20 +3605,41 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
     }
   });
 
+  // code/spawn.js
+  var spawn_exports = {};
+  __export(spawn_exports, {
+    levelOneSpawn: () => levelOneSpawn
+  });
+  function levelOneSpawn(player2, weapon2) {
+    spawnOgre2(4, 8, player2, weapon2);
+    spawnOgre2(8, 8, player2, weapon2);
+    spawnLizard2(26, 5, player2, weapon2);
+    spawnLizard2(25, 8, player2, weapon2);
+    spawnLizard2(23, 10, player2, weapon2);
+    spawnLizard2(20, 12, player2, weapon2);
+  }
+  var spawnOgre2, spawnLizard2;
+  var init_spawn = __esm({
+    "code/spawn.js"() {
+      init_kaboom();
+      ({ spawnOgre: spawnOgre2, spawnLizard: spawnLizard2 } = (init_objects(), __toCommonJS(objects_exports)));
+      __name(levelOneSpawn, "levelOneSpawn");
+    }
+  });
+
   // code/main.js
   init_kaboom();
   var { loadAsset: loadAsset2 } = (init_assets(), __toCommonJS(assets_exports));
   var { levelOne: levelOne2 } = (init_levels(), __toCommonJS(levels_exports));
-  var { addPlayer: addPlayer2, addSword, spawnOgre: spawnOgre2, spawnLizard: spawnLizard2, addDagger: addDagger2 } = (init_objects(), __toCommonJS(objects_exports));
+  var { addPlayer: addPlayer2, addSword, spawnOgre: spawnOgre3, spawnLizard: spawnLizard3, addDagger: addDagger2 } = (init_objects(), __toCommonJS(objects_exports));
   var { playerControls: playerControls3 } = (init_controls(), __toCommonJS(controls_exports));
+  var { levelOneSpawn: levelOneSpawn2 } = (init_spawn(), __toCommonJS(spawn_exports));
   var { pogaudio: pogaudio3 } = (init_audio(), __toCommonJS(audio_exports));
   loadAsset2();
   map = levelOne2();
   player = addPlayer2(map);
   weapon = addDagger2(player);
-  spawnOgre2(4, 8, player, weapon);
-  spawnOgre2(8, 8, player, weapon);
-  spawnLizard2(2, 8, player, weapon);
+  levelOneSpawn2(player, weapon);
   playerControls3(player, weapon);
   pogaudio3();
 })();

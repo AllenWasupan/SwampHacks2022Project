@@ -5,30 +5,22 @@ function levelOne(){
   "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
   "xxxxxxxxxxxxxxxxx            ",
   "           xxxxxx            ",
-	"           xxxxxx          $ ",
+	"           xxxxxx            ",
 	"                             ",
 	"                             ",
-	"       $              $      ",
+	"                             ",
 	"                             ",
 	"           xxxxxx            ",
 	"           xxxxxx            ",
 	"xxxxxxxxxxxxxxxxx            ",
 	"xxxxxxxxxxxxxxxxx            ",
 	"xxxxxxxxxxxxxxxxx            ",
-  "xxxxxxxxxxxxxxxxx          $ ",
   "xxxxxxxxxxxxxxxxx            ",
   "xxxxxxxxxxxxxxxxx            ",
-  "xxxxxxxxxxxxxxxxxxxxxxxxx  xxxxxxxxxx",
-  "xxxxxxxxxxxxxxxxxxxxxxxxx  xxxxxxxxxx",
-  "xxxxxxx                        xxxxxx",
-  "xxxxxxx                        xxxxxx",
-  "xxxxxxx            $           xxxxxx",
-  "xxxxxxx                        xxxxxx",
-  "xxxxxxx                        xxxxxx",
-  "xxxxxxx       $                xxxxxx",
-  "xxxxxxx                        xxxxxx",
-  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxx            ",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+
 ], {
   //Floor block dimension
 	width: 16,
@@ -40,8 +32,8 @@ function levelOne(){
 
 // objects
 const map = addLevel([
-	"ttttttttttt      tttttttttttt",
-	"cwwwwwwwwwwl     cwwwwwwwwwwd",
+	"tLWtttttttt      ttttttttLWtt",
+	"cDRwwwwwwwwl     cwwwwwwwDRwd",
 	"l          atttttl          r",
 	"l          wwwwww           r",
 	"l                           r",
@@ -54,19 +46,9 @@ const map = addLevel([
   "                 l          r",
   "                 l          r",
   "                 l          r",
-  "                 attttttt  tb",
-  "                 wwwwwwww  ww",
-  "       ttttttttttttttttttlrttttxxxxxx",
-  "       cwwwwwwwwwwwwwwwwwlrwwwdxxxxxx",
-  "xxxxxxxl                      rxxxxxx",
-  "xxxxxxxl                      rxxxxxx",
-  "xxxxxxxl                      rxxxxxx",
-  "xxxxxxxl                      rxxxxxx",
-  "xxxxxxxl                      rxxxxxx",
-  "xxxxxxxattttttttttttttttttttttbxxxxxx",
-  "xxxxxxxwwwwwwwwwwwwwwwwwwwwwwwwxxxxxx",
-  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "                 attttttttttb",
+  "                 wwwwwwwwwwww",
+
 ], {
 	width: 16,
 	height: 16,
@@ -117,6 +99,46 @@ const map = addLevel([
 		area({ width: 4, offset: vec2(12, 0) }),
 		solid(),
 	],
+  "D": () => [
+    sprite("doorblclosed"),
+    area(),
+    solid(),
+  ],
+  "R": () => [
+    sprite("doorbrclosed"),
+    area(),
+    solid(),
+  ],
+  "L": () => [
+    sprite("doortlclosed"),
+    area(),
+    solid(),
+  ],
+  "W": () => [
+    sprite("doortrclosed"),
+    area(),
+    solid(),
+  ],
+  "T": () => [
+    sprite("doorblopen"),
+    area(),
+    solid(),
+  ],
+  "Y": () => [
+    sprite("doorbropen"),
+    area(),
+    solid(),
+  ],
+  "G": () => [
+    sprite("doortlopen"),
+    area(),
+    solid(),
+  ],
+  "H": () => [
+    sprite("doortropen"),
+    area(),
+    solid(),
+  ],
 })
 
   return map

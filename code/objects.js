@@ -2,7 +2,7 @@ import kaboom from "kaboom"
 const playerControls = require("./controls")
 const {pogaudio,pogaudiosito,changuito} = require("./audio")
 
-const playerHealth = 100
+const playerHealth = 10
 const ogreHealth = 5
 const lizardHealth = 1
 function addPlayer(map){
@@ -105,27 +105,26 @@ onKeyPress("space", () => {
   })
 })
   
-loadSprite("boom", "/sprites/boom.png")
 
 on("death", "enemy", (e) => {
 		//wait(.2, () => destroy(e))
 
-    const particles = add([
-		pos(e.pos),
-		sprite("boom"),
-		origin("center"),
-		scale(rand(0.3)),
+  //   const particles = add([
+	// 	pos(e.pos),
+	// 	sprite("boom"),
+	// 	origin("center"),
+	// 	scale(rand(0.3)),
     
-		area(),
-		body({ solid: false, }),
-		lifespan(1, { fade: 0.5 }),
-		move(choose([LEFT, RIGHT]), rand(60, 240)),
-	])
+	// 	area(),
+	// 	body({ solid: false, }),
+	// 	lifespan(1, { fade: 0.5 }),
+	// 	move(choose([LEFT, RIGHT]), rand(60, 240)),
+	// ])
     //destroy("monsterhealth")
     destroy(e)
     shake(2)
     play("die")
-		particles.jump()
+		//particles.jump()
     volume(0.01)
 
 	})
@@ -156,9 +155,16 @@ Lizard.onStateEnter("move", async () => {
 
 
 Lizard.onStateUpdate("move", () => {
+	var distanceX = Math.abs(player.pos.x - Lizard.pos.x)
+  var distanceY = Math.abs(player.pos.y - Lizard.pos.y)
+
+  
 	if (!player.exists()) return
-	const dir = player.pos.sub(Lizard.pos).unit()
-	Lizard.move(dir.scale(25))
+
+  if(distanceX < 125 && distanceY < 125){
+    const dir = player.pos.sub(Lizard.pos).unit()
+    Lizard.move(dir.scale(40))
+  }
 })
 
 //player touch
@@ -177,29 +183,28 @@ onKeyPress("space", () => {
   })
 })
   
-loadSprite("boom", "/sprites/boom.png")
 // on("death", "monsterhealth", (m) => {
 //   destroy(m)
 // })
 on("death", "enemy", (e) => {
 		//wait(.2, () => destroy(e))
 
-    const particles = add([
-		pos(e.pos),
-		sprite("boom"),
-		origin("center"),
-		scale(rand(0.3)),
+  //   const particles = add([
+	// 	pos(e.pos),
+	// 	sprite("boom"),
+	// 	origin("center"),
+	// 	scale(rand(0.3)),
     
-		area(),
-		body({ solid: false, }),
-		lifespan(1, { fade: 0.5 }),
-		move(choose([LEFT, RIGHT]), rand(60, 240)),
-	])
+	// 	area(),
+	// 	body({ solid: false, }),
+	// 	lifespan(1, { fade: 0.5 }),
+	// 	move(choose([LEFT, RIGHT]), rand(60, 240)),
+	// ])
     //destroy("monsterhealth")
     destroy(e)
     shake(2)
     play("die")
-		particles.jump()
+		//particles.jump()
     volume(0.01)
 
 	})
